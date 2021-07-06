@@ -1,7 +1,5 @@
 package edu.westga.cs6910.pig.view;
 
-import java.util.Optional;
-
 import edu.westga.cs6910.pig.model.Game;
 import edu.westga.cs6910.pig.model.Player;
 import edu.westga.cs6910.pig.model.strategies.CautiousStrategy;
@@ -10,9 +8,6 @@ import edu.westga.cs6910.pig.model.strategies.PigStrategy;
 import edu.westga.cs6910.pig.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -43,7 +38,8 @@ public class PigPane extends BorderPane {
 	private ComputerPane pnComputerPlayer;
 	private StatusPane pnGameInfo;
 	private NewGamePane pnChooseFirstPlayer;
-	private boolean shouldShowHelpDialog;
+
+	private PigHelpDialog pigHelpDialog;
 
 	/**
 	 * Creates a pane object to provide the view for the specified Game model
@@ -60,8 +56,8 @@ public class PigPane extends BorderPane {
 		}
 		this.theGame = theGame;
 
-		this.shouldShowHelpDialog = true;
-		this.shouldShowHelpDialog = this.showHelpDialog();
+		this.pigHelpDialog = new PigHelpDialog();
+
 		this.pnContent = new BorderPane();
 
 		this.createMenu();
@@ -174,9 +170,11 @@ public class PigPane extends BorderPane {
 				PigPane.this.pnChooseFirstPlayer.setDisable(false);
 				PigPane.this.pnHumanPlayer.setDisable(true);
 				PigPane.this.pnComputerPlayer.setDisable(true);
-				if (PigPane.this.shouldShowHelpDialog) {
-					PigPane.this.shouldShowHelpDialog = PigPane.this.showHelpDialog();
+
+				if (PigPane.this.pigHelpDialog.getShouldShowHelpDialog()) {
+					PigPane.this.pigHelpDialog.setShouldShowHelpDialog(PigPane.this.pigHelpDialog.showHelpDialog());
 				}
+
 				PigPane.this.theGame.resetGame();
 				PigPane.this.pnGameInfo.clearInformation();
 				PigPane.this.pnHumanPlayer.clearInformation();
@@ -191,34 +189,6 @@ public class PigPane extends BorderPane {
 
 		mnuGame.getItems().addAll(mnuNew, mnuExit);
 		return mnuGame;
-	}
-
-	protected boolean showHelpDialog() {
-		if (!this.shouldShowHelpDialog) {
-			return false;
-		}
-
-		Alert message = new Alert(AlertType.CONFIRMATION);
-		message.setTitle("CS6910 - Better Pig");
-
-		String helpMessage = "Pig rules: \n  Play against the computer.\n"
-				+ "  Alternate taking turns, rolling the dice.\n"
-				+ "  If the player does not roll a 1 on either die, the points are added for the turn.\n"
-				+ "  If the player chooses to hold, their turn total "
-				+ "  is added to their score and the turn is over.\n"
-				+ "  You may set the goal score at the start of each game and\n    switch what "
-				+ "strategy the computer uses at any time.";
-
-		message.setHeaderText(helpMessage);
-		message.setContentText("Would you like to see this dialog at the start of the next game?");
-
-		ButtonType btnYes = new ButtonType("Yes");
-		ButtonType btnNo = new ButtonType("No");
-		message.getButtonTypes().setAll(btnYes, btnNo);
-
-		Optional<ButtonType> result = message.showAndWait();
-
-		return result.get() == btnYes;
 	}
 
 	/**
