@@ -3,7 +3,7 @@
 1) [ ] extract PigHelpDialog
     * [ ] make PigHelpDialog keep track if it needs to be displayed
 2) [ ] Help Menu
-    * [ ] display Help Contents
+    * [x] display Help Contents
     * [ ] display About
 3) [ ] extract PigMenuBar
 4) [ ] addStrategyItem method

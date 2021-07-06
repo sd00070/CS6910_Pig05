@@ -99,7 +99,9 @@ public class PigPane extends BorderPane {
 
 		Menu mnuSettings = this.createStrategyMenu();
 
-		mnuMain.getMenus().addAll(mnuFile, mnuSettings);
+		Menu helpMenu = this.createHelpMenu();
+
+		mnuMain.getMenus().addAll(mnuFile, mnuSettings, helpMenu);
 		vbxMenuHolder.getChildren().addAll(mnuMain);
 		this.setTop(vbxMenuHolder);
 	}
@@ -189,6 +191,27 @@ public class PigPane extends BorderPane {
 
 		mnuGame.getItems().addAll(mnuNew, mnuExit);
 		return mnuGame;
+	}
+
+	private Menu createHelpMenu() {
+		Menu helpMenu = new Menu("_Help");
+		helpMenu.setMnemonicParsing(true);
+
+		MenuItem helpContentsMenuItem = new MenuItem("Help _Contents");
+		helpContentsMenuItem.setMnemonicParsing(true);
+		helpContentsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+		helpContentsMenuItem.setOnAction(event -> {
+			PigPane.this.pigHelpDialog.setShouldShowHelpDialog(true);
+			PigPane.this.pigHelpDialog.setShouldShowHelpDialog(PigPane.this.pigHelpDialog.showHelpDialog());
+		});
+
+		MenuItem aboutMenuItem = new MenuItem("_About");
+		aboutMenuItem.setMnemonicParsing(true);
+		aboutMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN));
+		aboutMenuItem.setOnAction(event -> System.out.println("About Menu Selected"));
+
+		helpMenu.getItems().addAll(helpContentsMenuItem, aboutMenuItem);
+		return helpMenu;
 	}
 
 	/**
