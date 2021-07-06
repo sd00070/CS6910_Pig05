@@ -34,6 +34,8 @@ import javafx.scene.layout.VBox;
  * Defines a GUI for the Pig game.
  * This class was started by CS6910
  * 
+ * @author Spencer Dent
+ * @version 2021-07-06
  */
 public class PigPane extends BorderPane {
 	private Game theGame;

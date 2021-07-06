@@ -17,6 +17,8 @@ import javafx.scene.layout.Pane;
  * 	their turn
  * This class was started by CS6910
  * 
+ * @author Spencer Dent
+ * @version 2021-07-06
  */
 public class ComputerPane extends GridPane implements InvalidationListener {
 	private Game theGame;
