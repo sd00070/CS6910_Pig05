@@ -14,14 +14,13 @@ import javafx.stage.Stage;
  * 
  * @author CS6910
  * @version Summer 2021
- *
  */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("CS6910: Better Pig");
 		primaryStage.setResizable(false);
-		
+
 		Game theGame = new Game(new HumanPlayer("Human"), new ComputerPlayer(new CautiousStrategy()));
 
 		PigPane root = new PigPane(theGame);
@@ -34,8 +33,7 @@ public class Main extends Application {
 	/**
 	 * Entry point into the application
 	 * 
-	 * @param args
-	 *            Not used
+	 * @param args Not used
 	 */
 	public static void main(String[] args) {
 		launch(args);
