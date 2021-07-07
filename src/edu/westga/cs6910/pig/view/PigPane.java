@@ -36,18 +36,15 @@ public class PigPane extends BorderPane {
 		this.pigHelpDialog = new PigHelpDialog();
 
 		this.contentPane = new FullPigPane(this.theGame);
+		this.setCenter(this.contentPane);
 
 		this.createMenu();
-
-		this.setCenter(this.contentPane);
 	}
 
 	private void createMenu() {
 		VBox menuHolderVBox = new VBox();
 
-		PigMenuBar pigMenu = new PigMenuBar(this.theGame, this.contentPane.getGameInfoPane(),
-				this.contentPane.getChooseFirstPlayerPane(), this.contentPane.getHumanPlayerPane(),
-				this.contentPane.getComputerPlayerPane(), this.pigHelpDialog);
+		PigMenuBar pigMenu = new PigMenuBar(this.theGame, this.contentPane, this.pigHelpDialog);
 
 		menuHolderVBox.getChildren().addAll(pigMenu);
 		this.setTop(menuHolderVBox);

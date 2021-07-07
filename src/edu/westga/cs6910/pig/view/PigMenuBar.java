@@ -27,6 +27,8 @@ public class PigMenuBar extends MenuBar {
 
 	private Game theGame;
 
+	private FullPigPane contentPane;
+
 	private StatusPane gameInfoPane;
 	private NewGamePane chooseFirstPlayerPane;
 	private HumanPane humanPlayerPane;
@@ -38,40 +40,26 @@ public class PigMenuBar extends MenuBar {
 	 * Creates a MenuBar attached to the Pig Game and each of the Application's
 	 * Panes.
 	 * 
-	 * @param theGame               - reference to Pig Game model
-	 * @param gameInfoPane          - reference to Game Info Pane
-	 * @param chooseFirstPlayerPane - reference to New Game Pane
-	 * @param humanPlayerPane       - reference to Human Pane
-	 * @param computerPlayerPane    - reference to Computer Pane
-	 * @param pigHelpDialog         - reference to PigHelpDialog
+	 * @param theGame       - reference to Pig Game model
+	 * @param contentPane   - reference to the Full Pig Content Pane
+	 * @param pigHelpDialog - reference to PigHelpDialog
 	 */
-	public PigMenuBar(Game theGame, StatusPane gameInfoPane, NewGamePane chooseFirstPlayerPane,
-			HumanPane humanPlayerPane, ComputerPane computerPlayerPane, PigHelpDialog pigHelpDialog) {
+	public PigMenuBar(Game theGame, FullPigPane contentPane, PigHelpDialog pigHelpDialog) {
 
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game");
 		}
 		this.theGame = theGame;
-
-		if (gameInfoPane == null) {
-			throw new IllegalArgumentException("Invalid Game Info Pane");
+		
+		if (contentPane == null) {
+			throw new IllegalArgumentException("Invalid Full Pig Pane");
 		}
-		this.gameInfoPane = gameInfoPane;
+		this.contentPane = contentPane;
 
-		if (chooseFirstPlayerPane == null) {
-			throw new IllegalArgumentException("Invalid New Game Pane");
-		}
-		this.chooseFirstPlayerPane = chooseFirstPlayerPane;
-
-		if (humanPlayerPane == null) {
-			throw new IllegalArgumentException("Invalid Human Pane");
-		}
-		this.humanPlayerPane = humanPlayerPane;
-
-		if (computerPlayerPane == null) {
-			throw new IllegalArgumentException("Invalid Computer Pane");
-		}
-		this.computerPlayerPane = computerPlayerPane;
+		this.gameInfoPane = this.contentPane.getGameInfoPane();
+		this.chooseFirstPlayerPane = this.contentPane.getChooseFirstPlayerPane();
+		this.computerPlayerPane = this.contentPane.getComputerPlayerPane();
+		this.humanPlayerPane = this.contentPane.getHumanPlayerPane();
 
 		if (pigHelpDialog == null) {
 			throw new IllegalArgumentException("Invalid Help Dialog");
