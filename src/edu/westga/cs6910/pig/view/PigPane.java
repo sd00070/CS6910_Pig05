@@ -208,7 +208,9 @@ public class PigPane extends BorderPane {
 		MenuItem aboutMenuItem = new MenuItem("_About");
 		aboutMenuItem.setMnemonicParsing(true);
 		aboutMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN));
-		aboutMenuItem.setOnAction(event -> System.out.println("About Menu Selected"));
+		aboutMenuItem.setOnAction(event -> {
+			new PigAboutDialog().showAndWait();
+		});
 
 		helpMenu.getItems().addAll(helpContentsMenuItem, aboutMenuItem);
 		return helpMenu;
