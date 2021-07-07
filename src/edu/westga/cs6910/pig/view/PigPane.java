@@ -28,11 +28,12 @@ import javafx.scene.layout.VBox;
  */
 public class PigPane extends BorderPane {
 	private Game theGame;
-	private BorderPane pnContent;
-	private HumanPane pnHumanPlayer;
-	private ComputerPane pnComputerPlayer;
-	private StatusPane pnGameInfo;
-	private NewGamePane pnChooseFirstPlayer;
+	
+	private BorderPane contentPane;
+	private HumanPane humanPlayerPane;
+	private ComputerPane computerPlayerPane;
+	private StatusPane gameInfoPane;
+	private NewGamePane chooseFirstPlayerPane;
 
 	private PigHelpDialog pigHelpDialog;
 
@@ -53,27 +54,27 @@ public class PigPane extends BorderPane {
 
 		this.pigHelpDialog = new PigHelpDialog();
 
-		this.pnContent = new BorderPane();
+		this.contentPane = new BorderPane();
 
 		this.createMenu();
 
-		this.pnHumanPlayer = new HumanPane(theGame);
-		HBox leftBox = this.createHBoxHolder(this.pnHumanPlayer, true);
-		this.pnContent.setLeft(leftBox);
+		this.humanPlayerPane = new HumanPane(theGame);
+		HBox leftBox = this.createHBoxHolder(this.humanPlayerPane, true);
+		this.contentPane.setLeft(leftBox);
 
-		this.pnComputerPlayer = new ComputerPane(theGame);
-		HBox centerBox = this.createHBoxHolder(this.pnComputerPlayer, true);
-		this.pnContent.setCenter(centerBox);
+		this.computerPlayerPane = new ComputerPane(theGame);
+		HBox centerBox = this.createHBoxHolder(this.computerPlayerPane, true);
+		this.contentPane.setCenter(centerBox);
 
-		this.pnGameInfo = new StatusPane(theGame);
-		HBox bottomBox = this.createHBoxHolder(this.pnGameInfo, false);
-		this.pnContent.setBottom(bottomBox);
+		this.gameInfoPane = new StatusPane(theGame);
+		HBox bottomBox = this.createHBoxHolder(this.gameInfoPane, false);
+		this.contentPane.setBottom(bottomBox);
 		
-		this.pnChooseFirstPlayer = new NewGamePane(theGame, this.pnGameInfo, this.pnComputerPlayer, this.pnHumanPlayer);
-		HBox topBox = this.createHBoxHolder(this.pnChooseFirstPlayer, false);
-		this.pnContent.setTop(topBox);
+		this.chooseFirstPlayerPane = new NewGamePane(theGame, this.gameInfoPane, this.computerPlayerPane, this.humanPlayerPane);
+		HBox topBox = this.createHBoxHolder(this.chooseFirstPlayerPane, false);
+		this.contentPane.setTop(topBox);
 
-		this.setCenter(this.pnContent);
+		this.setCenter(this.contentPane);
 	}
 
 	private HBox createHBoxHolder(Pane newPane, boolean disable) {
@@ -153,19 +154,19 @@ public class PigPane extends BorderPane {
 		mnuNew.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				PigPane.this.pnChooseFirstPlayer.reset();
-				PigPane.this.pnChooseFirstPlayer.setDisable(false);
-				PigPane.this.pnHumanPlayer.setDisable(true);
-				PigPane.this.pnComputerPlayer.setDisable(true);
+				PigPane.this.chooseFirstPlayerPane.reset();
+				PigPane.this.chooseFirstPlayerPane.setDisable(false);
+				PigPane.this.humanPlayerPane.setDisable(true);
+				PigPane.this.computerPlayerPane.setDisable(true);
 
 				if (PigPane.this.pigHelpDialog.getShouldShowHelpDialog()) {
 					PigPane.this.pigHelpDialog.setShouldShowHelpDialog(PigPane.this.pigHelpDialog.showHelpDialog());
 				}
 
 				PigPane.this.theGame.resetGame();
-				PigPane.this.pnGameInfo.clearInformation();
-				PigPane.this.pnHumanPlayer.clearInformation();
-				PigPane.this.pnComputerPlayer.clearInformation();
+				PigPane.this.gameInfoPane.clearInformation();
+				PigPane.this.humanPlayerPane.clearInformation();
+				PigPane.this.computerPlayerPane.clearInformation();
 			}
 		});
 
