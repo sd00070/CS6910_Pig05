@@ -164,24 +164,32 @@ public class PigMenuBar extends MenuBar {
 		return strategyMenu;
 	}
 
+	private MenuItem createHelpMenuItem(String menuItemText, KeyCode acceleratorKey,
+			EventHandler<ActionEvent> eventHandler) {
+
+		MenuItem helpMenuItem = new MenuItem(menuItemText);
+
+		helpMenuItem.setMnemonicParsing(true);
+
+		helpMenuItem.setAccelerator(new KeyCodeCombination(acceleratorKey, KeyCombination.SHORTCUT_DOWN));
+
+		helpMenuItem.setOnAction(eventHandler);
+
+		return helpMenuItem;
+	}
+
 	private Menu createHelpMenu() {
 		Menu helpMenu = new Menu("_Help");
 		helpMenu.setMnemonicParsing(true);
 
-		MenuItem helpContentsMenuItem = new MenuItem("Help _Contents");
-		helpContentsMenuItem.setMnemonicParsing(true);
-		helpContentsMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
-		helpContentsMenuItem.setOnAction(event -> {
+		MenuItem helpContentsMenuItem = this.createHelpMenuItem("Help _Contents", KeyCode.C, (event -> {
 			PigMenuBar.this.pigHelpDialog.setShouldShowHelpDialog(true);
 			PigMenuBar.this.pigHelpDialog.setShouldShowHelpDialog(PigMenuBar.this.pigHelpDialog.showHelpDialog());
-		});
+		}));
 
-		MenuItem aboutMenuItem = new MenuItem("_About");
-		aboutMenuItem.setMnemonicParsing(true);
-		aboutMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN));
-		aboutMenuItem.setOnAction(event -> {
+		MenuItem aboutMenuItem = this.createHelpMenuItem("_About", KeyCode.A, (event -> {
 			new PigAboutDialog().showAndWait();
-		});
+		}));
 
 		helpMenu.getItems().addAll(helpContentsMenuItem, aboutMenuItem);
 		return helpMenu;
