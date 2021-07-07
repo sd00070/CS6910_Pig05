@@ -86,13 +86,13 @@ public class PigMenuBar extends MenuBar {
 	}
 
 	private Menu createGameMenu() {
-		Menu mnuGame = new Menu("_Game");
-		mnuGame.setMnemonicParsing(true);
+		Menu gameMenu = new Menu("_Game");
+		gameMenu.setMnemonicParsing(true);
 
-		MenuItem mnuNew = new MenuItem("_New");
-		mnuNew.setMnemonicParsing(true);
-		mnuNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN));
-		mnuNew.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem newGameMenuItem = new MenuItem("_New");
+		newGameMenuItem.setMnemonicParsing(true);
+		newGameMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN));
+		newGameMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				PigMenuBar.this.chooseFirstPlayerPane.reset();
@@ -112,13 +112,13 @@ public class PigMenuBar extends MenuBar {
 			}
 		});
 
-		MenuItem mnuExit = new MenuItem("E_xit");
-		mnuExit.setMnemonicParsing(true);
-		mnuExit.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
-		mnuExit.setOnAction(event -> System.exit(0));
+		MenuItem exitMenuItem = new MenuItem("E_xit");
+		exitMenuItem.setMnemonicParsing(true);
+		exitMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+		exitMenuItem.setOnAction(event -> System.exit(0));
 
-		mnuGame.getItems().addAll(mnuNew, mnuExit);
-		return mnuGame;
+		gameMenu.getItems().addAll(newGameMenuItem, exitMenuItem);
+		return gameMenu;
 	}
 
 	private RadioMenuItem addStrategyItem(String radioMenuItemText, KeyCode acceleratorKey,
@@ -137,31 +137,31 @@ public class PigMenuBar extends MenuBar {
 	}
 
 	private Menu createStrategyMenu() {
-		Menu mnuSettings = new Menu("_Strategy");
-		mnuSettings.setMnemonicParsing(true);
+		Menu strategyMenu = new Menu("_Strategy");
+		strategyMenu.setMnemonicParsing(true);
 
-		ToggleGroup tglStrategy = new ToggleGroup();
+		ToggleGroup strategyToggleGroup = new ToggleGroup();
 
-		RadioMenuItem mnuCautious = this.addStrategyItem("_Cautious", KeyCode.C, new CautiousStrategy());
-		mnuCautious.setToggleGroup(tglStrategy);
+		RadioMenuItem cautiousStrategyMenuItem = this.addStrategyItem("_Cautious", KeyCode.C, new CautiousStrategy());
+		cautiousStrategyMenuItem.setToggleGroup(strategyToggleGroup);
 
-		RadioMenuItem mnuGreedy = this.addStrategyItem("Gr_eedy", KeyCode.E, new GreedyStrategy());
-		mnuGreedy.setToggleGroup(tglStrategy);
+		RadioMenuItem greedyStrategyMenuItem = this.addStrategyItem("Gr_eedy", KeyCode.E, new GreedyStrategy());
+		greedyStrategyMenuItem.setToggleGroup(strategyToggleGroup);
 
-		RadioMenuItem mnuRandom = this.addStrategyItem("_Random", KeyCode.R, new RandomStrategy());
-		mnuRandom.setToggleGroup(tglStrategy);
+		RadioMenuItem randomStrategyMenuItem = this.addStrategyItem("_Random", KeyCode.R, new RandomStrategy());
+		randomStrategyMenuItem.setToggleGroup(strategyToggleGroup);
 
 		PigStrategy currentStrategy = this.theGame.getComputerPlayer().getStrategy();
 		if (currentStrategy.getClass() == CautiousStrategy.class) {
-			mnuCautious.setSelected(true);
+			cautiousStrategyMenuItem.setSelected(true);
 		} else if (currentStrategy.getClass() == RandomStrategy.class) {
-			mnuRandom.setSelected(true);
+			randomStrategyMenuItem.setSelected(true);
 		} else {
-			mnuGreedy.setSelected(true);
+			greedyStrategyMenuItem.setSelected(true);
 		}
 
-		mnuSettings.getItems().addAll(mnuCautious, mnuGreedy, mnuRandom);
-		return mnuSettings;
+		strategyMenu.getItems().addAll(cautiousStrategyMenuItem, greedyStrategyMenuItem, randomStrategyMenuItem);
+		return strategyMenu;
 	}
 
 	private Menu createHelpMenu() {
