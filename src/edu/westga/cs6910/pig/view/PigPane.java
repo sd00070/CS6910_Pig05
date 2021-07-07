@@ -106,43 +106,33 @@ public class PigPane extends BorderPane {
 		this.setTop(vbxMenuHolder);
 	}
 
+	private RadioMenuItem addStrategyItem(String radioMenuItemText, KeyCode acceleratorKey, PigStrategy selectedStrategy) {
+		RadioMenuItem strategyItem = new RadioMenuItem(radioMenuItemText);
+		strategyItem.setAccelerator(new KeyCodeCombination(acceleratorKey, KeyCombination.SHORTCUT_DOWN));
+		strategyItem.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				PigPane.this.theGame.getComputerPlayer().setStrategy(selectedStrategy);
+			}
+		});
+		strategyItem.setMnemonicParsing(true);
+		
+		return strategyItem;
+	}
+	
 	private Menu createStrategyMenu() {
 		Menu mnuSettings = new Menu("_Strategy");
 		mnuSettings.setMnemonicParsing(true);
 
 		ToggleGroup tglStrategy = new ToggleGroup();
-
-		RadioMenuItem mnuCautious = new RadioMenuItem("_Cautious");
-		mnuCautious.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
-		mnuCautious.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				PigPane.this.theGame.getComputerPlayer().setStrategy(new CautiousStrategy());
-			}
-		});
-		mnuCautious.setMnemonicParsing(true);
+		
+		RadioMenuItem mnuCautious = this.addStrategyItem("_Cautious", KeyCode.C, new CautiousStrategy());
 		mnuCautious.setToggleGroup(tglStrategy);
 
-		RadioMenuItem mnuGreedy = new RadioMenuItem("Gr_eedy");
-		mnuGreedy.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
-		mnuGreedy.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				PigPane.this.theGame.getComputerPlayer().setStrategy(new GreedyStrategy());
-			}
-		});
-		mnuGreedy.setMnemonicParsing(true);
+		RadioMenuItem mnuGreedy = this.addStrategyItem("Gr_eedy", KeyCode.E, new GreedyStrategy());
 		mnuGreedy.setToggleGroup(tglStrategy);
 
-		RadioMenuItem mnuRandom = new RadioMenuItem("_Random");
-		mnuRandom.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
-		mnuRandom.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				PigPane.this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
-			}
-		});
-		mnuRandom.setMnemonicParsing(true);
+		RadioMenuItem mnuRandom = this.addStrategyItem("_Random", KeyCode.R, new RandomStrategy());
 		mnuRandom.setToggleGroup(tglStrategy);
 
 		PigStrategy currentStrategy = this.theGame.getComputerPlayer().getStrategy();
