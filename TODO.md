@@ -7,5 +7,5 @@
     * [x] display About
 3) [ ] extract PigMenuBar
 4) [x] addStrategyItem method
-5) [ ] move NewGamePane to top-level
+5) [x] move NewGamePane to top-level
 6) [ ] extract FullPigPane
