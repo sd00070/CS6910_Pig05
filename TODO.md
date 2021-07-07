@@ -8,4 +8,4 @@
 3) [x] extract PigMenuBar
 4) [x] addStrategyItem method
 5) [x] move NewGamePane to top-level
-6) [ ] extract FullPigPane
+6) [x] extract FullPigPane

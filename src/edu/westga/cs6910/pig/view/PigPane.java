@@ -2,8 +2,6 @@ package edu.westga.cs6910.pig.view;
 
 import edu.westga.cs6910.pig.model.Game;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -13,13 +11,10 @@ import javafx.scene.layout.VBox;
  * @version 2021-07-06
  */
 public class PigPane extends BorderPane {
+
 	private Game theGame;
 
-	private BorderPane contentPane;
-	private HumanPane humanPlayerPane;
-	private ComputerPane computerPlayerPane;
-	private StatusPane gameInfoPane;
-	private NewGamePane chooseFirstPlayerPane;
+	private FullPigPane contentPane;
 
 	private PigHelpDialog pigHelpDialog;
 
@@ -40,44 +35,19 @@ public class PigPane extends BorderPane {
 
 		this.pigHelpDialog = new PigHelpDialog();
 
-		this.contentPane = new BorderPane();
-		
-		this.humanPlayerPane = new HumanPane(theGame);
-		HBox leftBox = this.createHBoxHolder(this.humanPlayerPane, true);
-		this.contentPane.setLeft(leftBox);
+		this.contentPane = new FullPigPane(this.theGame);
 
-		this.computerPlayerPane = new ComputerPane(theGame);
-		HBox centerBox = this.createHBoxHolder(this.computerPlayerPane, true);
-		this.contentPane.setCenter(centerBox);
-
-		this.gameInfoPane = new StatusPane(theGame);
-		HBox bottomBox = this.createHBoxHolder(this.gameInfoPane, false);
-		this.contentPane.setBottom(bottomBox);
-
-		this.chooseFirstPlayerPane = new NewGamePane(theGame, this.gameInfoPane, this.computerPlayerPane,
-				this.humanPlayerPane);
-		HBox topBox = this.createHBoxHolder(this.chooseFirstPlayerPane, false);
-		this.contentPane.setTop(topBox);
-		
 		this.createMenu();
 
 		this.setCenter(this.contentPane);
 	}
 
-	private HBox createHBoxHolder(Pane newPane, boolean disable) {
-		newPane.setDisable(disable);
-		HBox leftBox = new HBox();
-		leftBox.setMinWidth(350);
-		leftBox.getStyleClass().add("pane-border");
-		leftBox.getChildren().add(newPane);
-		return leftBox;
-	}
-
 	private void createMenu() {
 		VBox vbxMenuHolder = new VBox();
 
-		PigMenuBar pigMenu = new PigMenuBar(this.theGame, this.gameInfoPane, this.chooseFirstPlayerPane,
-				this.humanPlayerPane, this.computerPlayerPane, this.pigHelpDialog);
+		PigMenuBar pigMenu = new PigMenuBar(this.theGame, this.contentPane.getGameInfoPane(),
+				this.contentPane.getChooseFirstPlayerPane(), this.contentPane.getHumanPlayerPane(),
+				this.contentPane.getComputerPlayerPane(), this.pigHelpDialog);
 
 		vbxMenuHolder.getChildren().addAll(pigMenu);
 		this.setTop(vbxMenuHolder);
